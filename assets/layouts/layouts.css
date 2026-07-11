@@ -1,0 +1,132 @@
+:root {
+  --accent-contrast: #ffffff;
+}
+
+.layout-frame {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.layout-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  color: var(--text-3);
+  font-size: 14px;
+}
+
+.layout-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.layout-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.layout-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.layout-soft {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.layout-number {
+  color: var(--accent);
+  font-size: 96px;
+  font-weight: 800;
+  line-height: .9;
+}
+
+.layout-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.layout-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: var(--text-2);
+  background: var(--surface-2);
+  font-size: 13px;
+}
+
+.layout-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.layout-table th,
+.layout-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.layout-table th {
+  color: var(--text-3);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.layout-bars {
+  display: grid;
+  gap: 14px;
+}
+
+.layout-bar {
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.layout-steps,
+.layout-timeline {
+  display: grid;
+  gap: 16px;
+}
+
+.layout-step {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.layout-dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  font-weight: 800;
+}
+
+.layout-node-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}

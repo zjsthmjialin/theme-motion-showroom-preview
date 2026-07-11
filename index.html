@@ -1,0 +1,925 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>灵感演示工坊主题动效展示厅</title>
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" id="theme-link" href="assets/themes/clear-board.css">
+  <link rel="stylesheet" href="assets/animations/animations.css">
+  <link rel="preload" as="style" href="assets/themes/clear-board.css">
+  <link rel="preload" as="style" href="assets/themes/mist-blue.css">
+  <link rel="preload" as="style" href="assets/themes/data-brief.css">
+  <link rel="preload" as="style" href="assets/themes/deep-code.css">
+  <link rel="preload" as="style" href="assets/themes/terminal-signal.css">
+  <link rel="preload" as="style" href="assets/themes/blueprint-grid.css">
+  <link rel="preload" as="style" href="assets/themes/soft-card.css">
+  <link rel="preload" as="style" href="assets/themes/editorial-space.css">
+  <link rel="preload" as="style" href="assets/themes/journal-spark.css">
+  <link rel="preload" as="style" href="assets/themes/future-gradient.css">
+  <link rel="preload" as="style" href="assets/themes/glass-light.css">
+  <link rel="preload" as="style" href="assets/themes/brand-pop.css">
+  <link rel="preload" as="style" href="assets/themes/paper-research.css">
+  <link rel="preload" as="style" href="assets/themes/consulting-pro.css">
+  <link rel="preload" as="style" href="assets/themes/minimal-stage.css">
+  <link rel="preload" as="style" href="assets/themes/neon-orbit.css">
+  <link rel="preload" as="style" href="assets/themes/quantum-grid.css">
+  <link rel="preload" as="style" href="assets/themes/black-gold-stage.css">
+  <link rel="preload" as="style" href="assets/themes/platinum-launch.css">
+  <link rel="preload" as="style" href="assets/themes/executive-ink.css">
+  <link rel="preload" as="style" href="assets/themes/signal-dashboard.css">
+  <link rel="preload" as="style" href="assets/themes/editorial-luxe.css">
+  <link rel="preload" as="style" href="assets/themes/vivid-pop.css">
+  <style>
+    * { box-sizing: border-box; }
+    html { min-height: 100%; scroll-behavior: smooth; }
+    body {
+      min-height: 100%;
+      margin: 0;
+      color: var(--text-1);
+      background:
+        linear-gradient(120deg, color-mix(in srgb, var(--accent) 14%, transparent), transparent 34%),
+        linear-gradient(260deg, color-mix(in srgb, var(--accent-2) 12%, transparent), transparent 42%),
+        var(--bg);
+      font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+    button { font: inherit; }
+    .showroom {
+      display: grid;
+      grid-template-columns: 292px minmax(0, 1fr) 286px;
+      gap: 18px;
+      width: min(1680px, calc(100vw - 32px));
+      min-height: calc(100vh - 32px);
+      margin: 16px auto;
+    }
+    .rail,
+    .control-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      box-shadow: var(--shadow);
+    }
+    .rail {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .rail-header,
+    .control-header {
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    h1,
+    h2,
+    h3,
+    p { letter-spacing: 0; }
+    .rail h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.12;
+    }
+    .rail-header p,
+    .control-header p {
+      margin: 10px 0 0;
+      color: var(--text-2);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .theme-count {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .theme-count span {
+      min-height: 58px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px;
+      background: var(--surface-soft);
+      color: var(--text-2);
+      font-size: 11px;
+      line-height: 1.25;
+    }
+    .theme-count strong {
+      display: block;
+      color: var(--text-1);
+      font-size: 20px;
+      line-height: 1;
+    }
+    .theme-tools {
+      display: grid;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .theme-select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--text-1);
+      background: var(--surface);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .theme-select:focus-visible {
+      border-color: color-mix(in srgb, var(--accent) 52%, var(--border));
+      outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      outline-offset: 1px;
+    }
+    .theme-filters {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .filter-button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 8px;
+      color: var(--text-2);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .filter-button:hover,
+    .filter-button:focus-visible {
+      border-color: color-mix(in srgb, var(--accent) 52%, var(--border));
+      color: var(--text-1);
+      outline: 3px solid color-mix(in srgb, var(--accent) 18%, transparent);
+      outline-offset: 1px;
+    }
+    .filter-button[aria-pressed="true"] {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    }
+    .theme-list {
+      display: grid;
+      gap: 8px;
+      min-height: 0;
+      overflow: auto;
+      padding: 14px;
+    }
+    .theme-button,
+    .animation-button,
+    .action-button {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-1);
+      background: var(--surface);
+      cursor: pointer;
+    }
+    .theme-button {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      width: 100%;
+      min-height: 58px;
+      padding: 10px 11px;
+      text-align: left;
+    }
+    .theme-button:hover,
+    .theme-button:focus-visible,
+    .animation-button:hover,
+    .animation-button:focus-visible,
+    .action-button:hover,
+    .action-button:focus-visible {
+      border-color: color-mix(in srgb, var(--accent) 52%, var(--border));
+      outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      outline-offset: 1px;
+    }
+    .theme-button[aria-pressed="true"],
+    .animation-button[aria-pressed="true"] {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    .theme-button strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    .theme-button small {
+      display: block;
+      overflow: hidden;
+      margin-top: 5px;
+      color: var(--text-2);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 11px;
+    }
+    .group-pill {
+      align-self: start;
+      border-radius: 999px;
+      padding: 4px 7px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+      font-size: 10px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .stage-area {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      min-width: 0;
+      min-height: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .stage-topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .stage-topbar h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+    .stage-topbar p {
+      margin: 5px 0 0;
+      color: var(--text-2);
+      font-size: 13px;
+    }
+    .stage-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .stage-theme-select {
+      width: min(240px, 34vw);
+      min-height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 30px 5px 10px;
+      color: var(--text-1);
+      background: var(--surface);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .stage-theme-select:focus-visible {
+      border-color: color-mix(in srgb, var(--accent) 52%, var(--border));
+      outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      outline-offset: 1px;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .stage-wrap {
+      display: grid;
+      place-items: start center;
+      min-height: 0;
+      padding: clamp(14px, 2vw, 26px);
+    }
+    .live-stage {
+      position: relative;
+      width: min(100%, 1180px);
+      aspect-ratio: 16 / 9;
+      container-type: inline-size;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 28%),
+        radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 32%),
+        var(--bg);
+      box-shadow: 0 30px 90px rgba(15, 23, 42, 0.18);
+    }
+    .stage-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+      gap: clamp(20px, 3vw, 44px);
+      height: 100%;
+      padding: clamp(26px, 4cqw, 54px);
+    }
+    .stage-copy {
+      align-self: center;
+      min-width: 0;
+    }
+    .stage-copy .kicker {
+      display: inline-flex;
+      max-width: 100%;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--surface-soft);
+    }
+    .stage-title {
+      max-width: 740px;
+      margin: 16px 0 0;
+      overflow-wrap: anywhere;
+      font-size: clamp(32px, 5.2cqw, 58px);
+      line-height: 1.04;
+      font-weight: 900;
+    }
+    .stage-lede {
+      max-width: 650px;
+      margin: 18px 0 0;
+      color: var(--text-2);
+      overflow-wrap: anywhere;
+      font-size: clamp(15px, 1.7cqw, 19px);
+      line-height: 1.55;
+    }
+    .stage-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .stage-proof span {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--text-2);
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .stage-panel {
+      align-self: center;
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+      max-width: 340px;
+    }
+    .metric-card,
+    .insight-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .metric-card strong {
+      display: block;
+      color: var(--accent);
+      font-size: clamp(34px, 5cqw, 56px);
+      line-height: 0.95;
+    }
+    .metric-card span,
+    .insight-card p {
+      color: var(--text-2);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .insight-card h3 {
+      margin: 0 0 9px;
+      font-size: 18px;
+    }
+    .signal-line {
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    .slide-note {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      color: var(--text-2);
+      background: var(--surface);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .control-panel {
+      min-height: 0;
+      overflow: auto;
+    }
+    .control-section {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .control-section:last-child { border-bottom: 0; }
+    .control-section h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+    .animation-list {
+      display: grid;
+      gap: 8px;
+      max-height: 360px;
+      overflow: auto;
+    }
+    .animation-button {
+      display: grid;
+      width: 100%;
+      min-height: 44px;
+      padding: 9px 10px;
+      text-align: left;
+      font-size: 13px;
+    }
+    .animation-button small {
+      margin-top: 3px;
+      color: var(--text-2);
+      font-size: 11px;
+    }
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .action-button {
+      min-height: 44px;
+      padding: 10px;
+      font-weight: 900;
+    }
+    .action-button.primary {
+      color: #fff;
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .theme-detail {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      color: var(--text-2);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .theme-detail dt {
+      color: var(--text-1);
+      font-weight: 900;
+    }
+    .theme-detail dd {
+      margin: 0;
+    }
+    @media (max-width: 1180px) {
+      .showroom {
+        grid-template-columns: 260px minmax(0, 1fr);
+      }
+      .control-panel {
+        grid-column: 1 / -1;
+      }
+      .animation-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-height: none;
+      }
+      .stage-actions {
+        justify-content: flex-start;
+      }
+      .stage-theme-select {
+        width: min(360px, 100%);
+      }
+    }
+    @media (max-width: 820px) {
+      .showroom {
+        display: flex;
+        flex-direction: column;
+        width: min(100vw - 20px, 720px);
+      }
+      .stage-area { order: 1; }
+      .rail { order: 2; }
+      .control-panel { order: 3; }
+      .rail,
+      .stage-area,
+      .control-panel {
+        margin-bottom: 14px;
+      }
+      .theme-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: 360px;
+      }
+      .stage-inner {
+        grid-template-columns: 1fr;
+        padding: 28px;
+      }
+      .stage-panel {
+        display: none;
+      }
+      .animation-list {
+        grid-template-columns: 1fr;
+      }
+      .stage-topbar {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 520px) {
+      .theme-count,
+      .theme-list {
+        grid-template-columns: 1fr;
+      }
+      .stage-wrap {
+        padding: 10px;
+      }
+      .live-stage {
+        aspect-ratio: 9 / 14;
+      }
+      .stage-title {
+        font-size: 38px;
+      }
+      .stage-lede {
+        font-size: 15px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="showroom">
+    <aside class="rail" aria-label="主题列表">
+      <div class="rail-header">
+        <p class="eyebrow">Client Live Showroom</p>
+        <h1>主题动效展示厅</h1>
+        <p>选择任意主题，中央舞台会实时换肤并播放真实 CSS 动画。</p>
+      </div>
+      <div class="theme-count">
+        <span><strong>23</strong>主题</span>
+        <span><strong>21</strong>动画</span>
+        <span><strong>Live</strong>实时效果</span>
+      </div>
+      <div class="theme-tools">
+        <select class="theme-select" id="theme-select" aria-label="快速选择主题"></select>
+        <div class="theme-filters" id="theme-filters" aria-label="主题分组筛选"></div>
+      </div>
+      <div class="theme-list" id="theme-list"></div>
+    </aside>
+
+    <section class="stage-area" aria-label="实时主题动画舞台">
+      <header class="stage-topbar">
+        <div>
+          <h2 id="current-theme-heading">清爽白板</h2>
+          <p id="current-theme-subtitle">clear-board · clean, bright, focused</p>
+        </div>
+        <div class="stage-actions">
+          <select class="stage-theme-select" id="stage-theme-select" aria-label="舞台快速选择主题"></select>
+          <span class="live-badge" id="current-animation-badge">Hero Slam</span>
+        </div>
+      </header>
+      <div class="stage-wrap">
+        <article class="live-stage" id="live-stage">
+          <div class="stage-inner">
+            <div class="stage-copy">
+              <p class="kicker" id="stage-kicker" data-anim>Theme / clear-board</p>
+              <h2 class="stage-title" id="stage-title" data-anim>把主题和动画做成客户能感知的演示现场</h2>
+              <p class="stage-lede" id="stage-lede" data-anim>不是截图拼贴，而是真实 DOM、真实主题 CSS 和真实动画组合。每一次切换都会让客户看到最终页面会怎样动起来。</p>
+              <div class="stage-proof" id="stage-proof" data-anim>
+                <span>标题入场</span>
+                <span>指标弹出</span>
+                <span>卡片级联</span>
+                <span>线条绘制</span>
+              </div>
+            </div>
+            <div class="stage-panel">
+              <div class="metric-card" id="metric-card" data-anim>
+                <strong id="metric-value">23</strong>
+                <span id="metric-label">套主题全部可演示</span>
+              </div>
+              <div class="insight-card" id="insight-card" data-anim>
+                <h3>客户演示重点</h3>
+                <p id="insight-copy">用一块真实舞台统一展示主题、字阶、卡片、指标和动效，让选择过程更像产品体验。</p>
+              </div>
+              <div class="signal-line" id="signal-line" data-anim></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <footer class="slide-note" id="stage-note">当前舞台使用 clear-board 主题与 Hero Slam 动画。</footer>
+    </section>
+
+    <aside class="control-panel" aria-label="动效控制">
+      <div class="control-header">
+        <p class="eyebrow">Motion Controls</p>
+        <h2>真实动效控制台</h2>
+        <p>选择动画后点击重播，或开启自动巡演依次切换主题。</p>
+      </div>
+      <section class="control-section">
+        <h3>播放</h3>
+        <div class="action-grid">
+          <button class="action-button primary" type="button" id="replay-button">重播</button>
+          <button class="action-button" type="button" id="tour-button" aria-pressed="false">自动巡演</button>
+        </div>
+      </section>
+      <section class="control-section">
+        <h3>动画效果</h3>
+        <div class="animation-list" id="animation-list"></div>
+      </section>
+      <section class="control-section">
+        <h3>当前主题</h3>
+        <dl class="theme-detail">
+          <dt>推荐场景</dt>
+          <dd id="theme-scenes">training / workshop / team briefing</dd>
+          <dt>视觉语气</dt>
+          <dd id="theme-tone">clean, bright, focused</dd>
+          <dt>分组</dt>
+          <dd id="theme-group">business</dd>
+        </dl>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    const THEMES = [
+      {"id":"clear-board","name":"清爽白板","group":"business","tone":"clean, bright, focused","recommendedFor":["training","workshop","team briefing"]},
+      {"id":"mist-blue","name":"高级灰蓝","group":"business","tone":"calm, polished, executive","recommendedFor":["business review","proposal","strategy update"]},
+      {"id":"data-brief","name":"数据简报","group":"business","tone":"precise, analytical, structured","recommendedFor":["metrics readout","dashboard summary","market analysis"]},
+      {"id":"deep-code","name":"深色代码","group":"tech","tone":"dark, sharp, technical","recommendedFor":["engineering demo","code walkthrough","developer keynote"]},
+      {"id":"terminal-signal","name":"终端极客","group":"tech","tone":"compact, high-contrast, systems-oriented","recommendedFor":["ops review","security briefing","tooling demo"]},
+      {"id":"blueprint-grid","name":"架构蓝图","group":"tech","tone":"diagrammatic, spatial, rigorous","recommendedFor":["architecture review","platform plan","technical roadmap"]},
+      {"id":"soft-card","name":"温柔卡片","group":"creator","tone":"soft, friendly, organized","recommendedFor":["course notes","portfolio story","creator update"]},
+      {"id":"editorial-space","name":"杂志留白","group":"creator","tone":"editorial, spacious, refined","recommendedFor":["case study","visual essay","brand narrative"]},
+      {"id":"journal-spark","name":"手账灵感","group":"creator","tone":"warm, expressive, personal","recommendedFor":["reflection deck","idea collection","creative process"]},
+      {"id":"future-gradient","name":"未来渐变","group":"launch","tone":"vivid, futuristic, energetic","recommendedFor":["product launch","vision pitch","innovation showcase"]},
+      {"id":"glass-light","name":"玻璃光感","group":"launch","tone":"luminous, modern, premium","recommendedFor":["feature reveal","investor preview","app showcase"]},
+      {"id":"brand-pop","name":"活力品牌","group":"launch","tone":"bold, upbeat, memorable","recommendedFor":["campaign pitch","brand activation","growth update"]},
+      {"id":"paper-research","name":"论文纸感","group":"academic","tone":"scholarly, quiet, evidence-led","recommendedFor":["research summary","literature review","seminar"]},
+      {"id":"consulting-pro","name":"咨询提案","group":"academic","tone":"formal, logical, recommendation-driven","recommendedFor":["consulting deck","decision memo","policy proposal"]},
+      {"id":"minimal-stage","name":"极简演讲","group":"academic","tone":"minimal, confident, presentation-first","recommendedFor":["lecture","conference talk","thesis defense"]},
+      {"id":"neon-orbit","name":"霓虹轨道","group":"premium-tech","tone":"dark, electric, cinematic, future-facing","recommendedFor":["AI keynote","vision pitch","technical launch"]},
+      {"id":"quantum-grid","name":"量子网格","group":"premium-tech","tone":"dark, precise, gridded, systems-oriented","recommendedFor":["architecture review","data platform","developer demo"]},
+      {"id":"black-gold-stage","name":"黑金舞台","group":"premium-launch","tone":"dramatic, high-end, confident, investor-ready","recommendedFor":["founder pitch","premium launch","executive keynote"]},
+      {"id":"platinum-launch","name":"铂金发布","group":"premium-launch","tone":"bright, metallic, polished, product-led","recommendedFor":["SaaS launch","feature reveal","product story"]},
+      {"id":"executive-ink","name":"高管墨色","group":"premium-consulting","tone":"editorial, serious, strategic, recommendation-led","recommendedFor":["board memo","strategy report","decision briefing"]},
+      {"id":"signal-dashboard","name":"信号仪表盘","group":"premium-data","tone":"analytical, high-contrast, operational, decision-oriented","recommendedFor":["KPI review","operating report","market diagnostics"]},
+      {"id":"editorial-luxe","name":"高级刊物","group":"premium-editorial","tone":"spacious, typographic, calm, sophisticated","recommendedFor":["course module","knowledge essay","case study"]},
+      {"id":"vivid-pop","name":"鲜活品牌","group":"premium-creator","tone":"bold, saturated, energetic, memorable","recommendedFor":["social carousel","campaign recap","creator deck"]}
+    ];
+
+    const ANIMATIONS = [
+      {"name":"Hero Slam","className":"anim-hero-slam"},
+      {"name":"Fade Up","className":"anim-fade-up"},
+      {"name":"Fade Down","className":"anim-fade-down"},
+      {"name":"Fade Left","className":"anim-fade-left"},
+      {"name":"Fade Right","className":"anim-fade-right"},
+      {"name":"Rise In","className":"anim-rise-in"},
+      {"name":"Zoom In","className":"anim-zoom-in"},
+      {"name":"Blur In","className":"anim-blur-in"},
+      {"name":"Stagger List","className":"anim-stagger-list"},
+      {"name":"Counter Up","className":"anim-counter-up"},
+      {"name":"Line Draw","className":"anim-line-draw"},
+      {"name":"Highlight Sweep","className":"anim-highlight-sweep"},
+      {"name":"Soft Pulse","className":"anim-soft-pulse"},
+      {"name":"Float Slow","className":"anim-float-slow"},
+      {"name":"Slide Reveal","className":"anim-slide-reveal"},
+      {"name":"Typing","className":"anim-typing"},
+      {"name":"Reveal Mask","className":"anim-reveal-mask"},
+      {"name":"Metric Pop","className":"anim-metric-pop"},
+      {"name":"Card Cascade","className":"anim-card-cascade"},
+      {"name":"Image Drift","className":"anim-image-drift"},
+      {"name":"Signal Scan","className":"anim-signal-scan"}
+    ];
+
+    const themeLink = document.getElementById("theme-link");
+    const themeSelect = document.getElementById("theme-select");
+    const stageThemeSelect = document.getElementById("stage-theme-select");
+    const themeFilters = document.getElementById("theme-filters");
+    const themeList = document.getElementById("theme-list");
+    const animationList = document.getElementById("animation-list");
+    const stage = document.getElementById("live-stage");
+    const animatedNodes = [
+      document.getElementById("stage-kicker"),
+      document.getElementById("stage-title"),
+      document.getElementById("stage-lede"),
+      document.getElementById("stage-proof"),
+      document.getElementById("metric-card"),
+      document.getElementById("insight-card"),
+      document.getElementById("signal-line")
+    ];
+    const GROUP_FILTERS = [
+      { label: "全部", value: "all" },
+      { label: "商务", value: "business" },
+      { label: "科技", value: "tech" },
+      { label: "创作", value: "creator" },
+      { label: "发布", value: "launch" },
+      { label: "高端", value: "premium" }
+    ];
+    const state = { themeIndex: 0, animationIndex: 0, activeGroup: "all", tourTimer: null };
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function isThemeInActiveGroup(theme) {
+      if (state.activeGroup === "all") return true;
+      if (state.activeGroup === "premium") return theme.group.startsWith("premium");
+      return theme.group === state.activeGroup;
+    }
+
+    function groupValueForTheme(theme) {
+      return theme.group.startsWith("premium") ? "premium" : theme.group;
+    }
+
+    function renderThemeSelect() {
+      const options = THEMES.map((theme, index) => (
+        `<option value="${index}">${escapeHtml(theme.name)} · ${escapeHtml(theme.group)}</option>`
+      )).join("");
+      themeSelect.innerHTML = options;
+      stageThemeSelect.innerHTML = options;
+    }
+
+    function renderThemeFilters() {
+      themeFilters.innerHTML = GROUP_FILTERS.map((filter) => (
+        `<button class="filter-button" type="button" data-theme-filter="${filter.value}" aria-pressed="${filter.value === state.activeGroup}">
+          ${escapeHtml(filter.label)}
+        </button>`
+      )).join("");
+    }
+
+    function renderThemeList() {
+      const visibleThemes = THEMES
+        .map((theme, index) => ({ theme, index }))
+        .filter(({ theme }) => isThemeInActiveGroup(theme));
+      themeList.innerHTML = visibleThemes.map(({ theme, index }) => (
+        `<button class="theme-button" type="button" data-theme-index="${index}" aria-pressed="${index === state.themeIndex}">
+          <span><strong>${escapeHtml(theme.name)}</strong><small>${escapeHtml(theme.id)} · ${escapeHtml(theme.tone)}</small></span>
+          <span class="group-pill">${escapeHtml(theme.group)}</span>
+        </button>`
+      )).join("");
+    }
+
+    function renderAnimationList() {
+      animationList.innerHTML = ANIMATIONS.map((animation, index) => (
+        `<button class="animation-button" type="button" data-animation-index="${index}" aria-pressed="${index === 0}">
+          <strong>${escapeHtml(animation.name)}</strong>
+          <small>${escapeHtml(animation.className)}</small>
+        </button>`
+      )).join("");
+    }
+
+    function setAnimationClasses(animation) {
+      const baseClasses = ["", animation.className, "anim-fade-up", "anim-card-cascade", "anim-metric-pop", "anim-fade-left", "anim-line-draw"];
+      animatedNodes.forEach((node, index) => {
+        if (!node) return;
+        node.className = node.className
+          .split(/\s+/)
+          .filter((item) => item && !item.startsWith("anim-"))
+          .join(" ");
+        const nextClass = baseClasses[index] || animation.className;
+        if (nextClass) node.classList.add(nextClass);
+      });
+      document.getElementById("stage-proof").classList.add("anim-stagger-list");
+      document.getElementById("metric-card").classList.add("anim-metric-pop");
+      document.getElementById("signal-line").classList.add("anim-line-draw");
+    }
+
+    function replay() {
+      const animation = ANIMATIONS[state.animationIndex];
+      stage.style.animation = "none";
+      animatedNodes.forEach((node) => {
+        if (!node) return;
+        node.style.animation = "none";
+        void node.offsetWidth;
+        node.style.animation = "";
+      });
+      void stage.offsetWidth;
+      stage.style.animation = "";
+      setAnimationClasses(animation);
+    }
+
+    function applyTheme(index) {
+      state.themeIndex = index;
+      const theme = THEMES[index];
+      themeLink.href = `assets/themes/${theme.id}.css`;
+      document.getElementById("current-theme-heading").textContent = theme.name;
+      document.getElementById("current-theme-subtitle").textContent = `${theme.id} · ${theme.tone}`;
+      document.getElementById("stage-kicker").textContent = `${theme.group} / ${theme.id}`;
+      document.getElementById("stage-title").textContent = `${theme.name}：客户可感知的真实演示效果`;
+      document.getElementById("stage-lede").textContent = `适合 ${theme.recommendedFor.join("、")}。当前舞台直接加载 ${theme.id}.css，展示标题、指标、卡片和线条在真实主题下的动效表现。`;
+      document.getElementById("metric-value").textContent = String(10 + theme.id.length);
+      document.getElementById("metric-label").textContent = `${theme.name} token 组合`;
+      document.getElementById("insight-copy").textContent = `${theme.tone}。客户看到的是可交付页面里的真实层级、色彩和动画节奏。`;
+      document.getElementById("theme-scenes").textContent = theme.recommendedFor.join(" / ");
+      document.getElementById("theme-tone").textContent = theme.tone;
+      document.getElementById("theme-group").textContent = theme.group;
+      document.getElementById("stage-note").textContent = `当前舞台使用 ${theme.id} 主题与 ${ANIMATIONS[state.animationIndex].name} 动画。`;
+      themeSelect.value = String(index);
+      stageThemeSelect.value = String(index);
+      document.querySelectorAll(".theme-button").forEach((button) => {
+        button.setAttribute("aria-pressed", String(Number(button.dataset.themeIndex) === index));
+      });
+      replay();
+    }
+
+    function applyAnimation(index) {
+      state.animationIndex = index;
+      const animation = ANIMATIONS[index];
+      document.getElementById("current-animation-badge").textContent = animation.name;
+      document.querySelectorAll(".animation-button").forEach((button) => {
+        button.setAttribute("aria-pressed", String(Number(button.dataset.animationIndex) === index));
+      });
+      applyTheme(state.themeIndex);
+    }
+
+    function toggleTour() {
+      const button = document.getElementById("tour-button");
+      if (state.tourTimer) {
+        window.clearInterval(state.tourTimer);
+        state.tourTimer = null;
+        button.setAttribute("aria-pressed", "false");
+        button.textContent = "自动巡演";
+        return;
+      }
+      button.setAttribute("aria-pressed", "true");
+      button.textContent = "停止巡演";
+      state.tourTimer = window.setInterval(() => {
+        applyTheme((state.themeIndex + 1) % THEMES.length);
+      }, 2400);
+    }
+
+    function findInitialThemeIndex() {
+      const themeId = new URLSearchParams(window.location.search).get("theme");
+      const index = THEMES.findIndex((theme) => theme.id === themeId);
+      return index >= 0 ? index : 0;
+    }
+
+    function findInitialAnimationIndex() {
+      const animationParam = new URLSearchParams(window.location.search).get("animation");
+      const index = ANIMATIONS.findIndex((animation) => (
+        animation.className === animationParam || animation.name.toLowerCase().replace(/\s+/g, "-") === animationParam
+      ));
+      return index >= 0 ? index : 0;
+    }
+
+    renderThemeSelect();
+    renderThemeFilters();
+    renderThemeList();
+    renderAnimationList();
+    function handleThemeSelectChange(select) {
+      const index = Number(select.value);
+      const theme = THEMES[index];
+      state.activeGroup = groupValueForTheme(theme);
+      renderThemeFilters();
+      renderThemeList();
+      applyTheme(index);
+    }
+    themeSelect.addEventListener("change", () => handleThemeSelectChange(themeSelect));
+    stageThemeSelect.addEventListener("change", () => handleThemeSelectChange(stageThemeSelect));
+    themeFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-theme-filter]");
+      if (!button) return;
+      state.activeGroup = button.dataset.themeFilter;
+      renderThemeFilters();
+      renderThemeList();
+      if (!isThemeInActiveGroup(THEMES[state.themeIndex])) {
+        const firstVisibleIndex = THEMES.findIndex((theme) => isThemeInActiveGroup(theme));
+        if (firstVisibleIndex >= 0) applyTheme(firstVisibleIndex);
+      } else {
+        applyTheme(state.themeIndex);
+      }
+    });
+    themeList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-theme-index]");
+      if (button) applyTheme(Number(button.dataset.themeIndex));
+    });
+    animationList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-animation-index]");
+      if (button) applyAnimation(Number(button.dataset.animationIndex));
+    });
+    document.getElementById("replay-button").addEventListener("click", replay);
+    document.getElementById("tour-button").addEventListener("click", toggleTour);
+    state.themeIndex = findInitialThemeIndex();
+    state.animationIndex = findInitialAnimationIndex();
+    state.activeGroup = groupValueForTheme(THEMES[state.themeIndex]);
+    renderThemeFilters();
+    renderThemeList();
+    applyAnimation(state.animationIndex);
+  </script>
+</body>
+</html>
+

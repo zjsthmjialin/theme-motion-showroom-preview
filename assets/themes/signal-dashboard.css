@@ -1,0 +1,33 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #eaf0f6;
+  --surface-2: #dfe7ef;
+  --border: rgba(15, 118, 110, 0.18);
+  --text-1: #102022;
+  --text-2: #425559;
+  --text-3: #748488;
+  --accent: #0f766e;
+  --accent-2: #f59e0b;
+  --bg-accent: rgba(15, 118, 110, 0.08);
+  --radius: 8px;
+  --shadow: 0 20px 52px rgba(20, 45, 55, 0.14);
+  --grad: linear-gradient(135deg, #0f766e, #22c55e 48%, #f59e0b);
+}
+
+.theme-stage {
+  background:
+    linear-gradient(180deg, rgba(15, 118, 110, 0.07), transparent 38%),
+    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 28%),
+    var(--bg);
+}
+
+.theme-rail {
+  border-left: 4px solid var(--accent);
+  padding-left: 18px;
+}
+
+.theme-signal {
+  outline: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  outline-offset: -1px;
+}

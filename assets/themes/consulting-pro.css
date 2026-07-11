@@ -1,0 +1,16 @@
+:root {
+  --bg: #fbfbf8;
+  --surface: #ffffff;
+  --surface-soft: #f1f3f2;
+  --surface-2: #eef2f7;
+  --border: rgba(28, 45, 68, 0.14);
+  --text-1: #142033;
+  --text-2: #4d5969;
+  --text-3: #8a929e;
+  --accent: #123f6d;
+  --accent-2: #c59a3f;
+  --bg-accent: transparent;
+  --radius: 6px;
+  --shadow: 0 18px 44px rgba(24, 37, 54, 0.12);
+  --grad: linear-gradient(135deg, #123f6d, #c59a3f);
+}

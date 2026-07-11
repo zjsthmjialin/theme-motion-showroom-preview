@@ -1,0 +1,163 @@
+[
+  {
+    "id": "clear-board",
+    "name": "清爽白板",
+    "group": "business",
+    "tone": "clean, bright, focused",
+    "recommendedFor": ["training", "workshop", "team briefing"]
+  },
+  {
+    "id": "mist-blue",
+    "name": "高级灰蓝",
+    "group": "business",
+    "tone": "calm, polished, executive",
+    "recommendedFor": ["business review", "proposal", "strategy update"]
+  },
+  {
+    "id": "data-brief",
+    "name": "数据简报",
+    "group": "business",
+    "tone": "precise, analytical, structured",
+    "recommendedFor": ["metrics readout", "dashboard summary", "market analysis"]
+  },
+  {
+    "id": "deep-code",
+    "name": "深色代码",
+    "group": "tech",
+    "tone": "dark, sharp, technical",
+    "recommendedFor": ["engineering demo", "code walkthrough", "developer keynote"]
+  },
+  {
+    "id": "terminal-signal",
+    "name": "终端极客",
+    "group": "tech",
+    "tone": "compact, high-contrast, systems-oriented",
+    "recommendedFor": ["ops review", "security briefing", "tooling demo"]
+  },
+  {
+    "id": "blueprint-grid",
+    "name": "架构蓝图",
+    "group": "tech",
+    "tone": "diagrammatic, spatial, rigorous",
+    "recommendedFor": ["architecture review", "platform plan", "technical roadmap"]
+  },
+  {
+    "id": "soft-card",
+    "name": "温柔卡片",
+    "group": "creator",
+    "tone": "soft, friendly, organized",
+    "recommendedFor": ["course notes", "portfolio story", "creator update"]
+  },
+  {
+    "id": "editorial-space",
+    "name": "杂志留白",
+    "group": "creator",
+    "tone": "editorial, spacious, refined",
+    "recommendedFor": ["case study", "visual essay", "brand narrative"]
+  },
+  {
+    "id": "journal-spark",
+    "name": "手账灵感",
+    "group": "creator",
+    "tone": "warm, expressive, personal",
+    "recommendedFor": ["reflection deck", "idea collection", "creative process"]
+  },
+  {
+    "id": "future-gradient",
+    "name": "未来渐变",
+    "group": "launch",
+    "tone": "vivid, futuristic, energetic",
+    "recommendedFor": ["product launch", "vision pitch", "innovation showcase"]
+  },
+  {
+    "id": "glass-light",
+    "name": "玻璃光感",
+    "group": "launch",
+    "tone": "luminous, modern, premium",
+    "recommendedFor": ["feature reveal", "investor preview", "app showcase"]
+  },
+  {
+    "id": "brand-pop",
+    "name": "活力品牌",
+    "group": "launch",
+    "tone": "bold, upbeat, memorable",
+    "recommendedFor": ["campaign pitch", "brand activation", "growth update"]
+  },
+  {
+    "id": "paper-research",
+    "name": "论文纸感",
+    "group": "academic",
+    "tone": "scholarly, quiet, evidence-led",
+    "recommendedFor": ["research summary", "literature review", "seminar"]
+  },
+  {
+    "id": "consulting-pro",
+    "name": "咨询提案",
+    "group": "academic",
+    "tone": "formal, logical, recommendation-driven",
+    "recommendedFor": ["consulting deck", "decision memo", "policy proposal"]
+  },
+  {
+    "id": "minimal-stage",
+    "name": "极简演讲",
+    "group": "academic",
+    "tone": "minimal, confident, presentation-first",
+    "recommendedFor": ["lecture", "conference talk", "thesis defense"]
+  },
+  {
+    "id": "neon-orbit",
+    "name": "霓虹轨道",
+    "group": "premium-tech",
+    "tone": "dark, electric, cinematic, future-facing",
+    "recommendedFor": ["AI keynote", "vision pitch", "technical launch"]
+  },
+  {
+    "id": "quantum-grid",
+    "name": "量子网格",
+    "group": "premium-tech",
+    "tone": "dark, precise, gridded, systems-oriented",
+    "recommendedFor": ["architecture review", "data platform", "developer demo"]
+  },
+  {
+    "id": "black-gold-stage",
+    "name": "黑金舞台",
+    "group": "premium-launch",
+    "tone": "dramatic, high-end, confident, investor-ready",
+    "recommendedFor": ["founder pitch", "premium launch", "executive keynote"]
+  },
+  {
+    "id": "platinum-launch",
+    "name": "铂金发布",
+    "group": "premium-launch",
+    "tone": "bright, metallic, polished, product-led",
+    "recommendedFor": ["SaaS launch", "feature reveal", "product story"]
+  },
+  {
+    "id": "executive-ink",
+    "name": "高管墨色",
+    "group": "premium-consulting",
+    "tone": "editorial, serious, strategic, recommendation-led",
+    "recommendedFor": ["board memo", "strategy report", "decision briefing"]
+  },
+  {
+    "id": "signal-dashboard",
+    "name": "信号仪表盘",
+    "group": "premium-data",
+    "tone": "analytical, high-contrast, operational, decision-oriented",
+    "recommendedFor": ["KPI review", "operating report", "market diagnostics"]
+  },
+  {
+    "id": "editorial-luxe",
+    "name": "高级刊物",
+    "group": "premium-editorial",
+    "tone": "spacious, typographic, calm, sophisticated",
+    "recommendedFor": ["course module", "knowledge essay", "case study"]
+  },
+  {
+    "id": "vivid-pop",
+    "name": "鲜活品牌",
+    "group": "premium-creator",
+    "tone": "bold, saturated, energetic, memorable",
+    "recommendedFor": ["social carousel", "campaign recap", "creator deck"]
+  }
+]
