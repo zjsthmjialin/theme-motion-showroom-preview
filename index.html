@@ -476,6 +476,33 @@
     .theme-detail dd {
       margin: 0;
     }
+    .showroom-footer {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-2);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .showroom-footer a {
+      color: var(--accent);
+      font-weight: 900;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .showroom-footer a:hover,
+    .showroom-footer a:focus-visible {
+      color: var(--text-1);
+      outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      outline-offset: 3px;
+    }
     @media (max-width: 1180px) {
       .showroom {
         grid-template-columns: 260px minmax(0, 1fr);
@@ -646,6 +673,9 @@
         </dl>
       </section>
     </aside>
+    <footer class="showroom-footer">
+      GitHub 仓库：<a href="https://github.com/zjsthmjialin/inspiration-deck-workshop" target="_blank" rel="noreferrer">zjsthmjialin/inspiration-deck-workshop</a>
+    </footer>
   </main>
 
   <script>
