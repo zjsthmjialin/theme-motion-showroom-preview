@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="灵感演示工坊：面向产品发布、商业汇报、客户提案与课程内容的 HTML 演示工具包。">
+  <meta property="og:title" content="灵感演示工坊">
+  <meta property="og:description" content="让演示从内容草稿，变成可直接展示的动态页面。">
+  <meta property="og:image" content="https://zjsthmjialin.github.io/theme-motion-showroom-preview/assets/project-intro-themes.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zjsthmjialin.github.io/theme-motion-showroom-preview/project-introduction.html">
+  <title>灵感演示工坊</title>
+  <style>
+    :root {
+      --ink: #141a28;
+      --muted: #5b6473;
+      --paper: #f8f7f4;
+      --white: #ffffff;
+      --line: #d9dde5;
+      --signal: #d7472f;
+      --cobalt: #2856d8;
+      --deep: #17233d;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .site-nav {
+      position: absolute;
+      z-index: 2;
+      inset: 0 0 auto;
+      color: var(--white);
+    }
+    .site-nav .shell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 20px;
+    }
+    .brand { font-size: 16px; font-weight: 800; text-decoration: none; }
+    .nav-link { font-size: 14px; font-weight: 700; text-underline-offset: 4px; }
+    .hero {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      align-items: end;
+      min-height: min(660px, calc(100svh - 84px));
+      padding: 132px 0 64px;
+      color: var(--white);
+      background: #182039 url("assets/project-intro-themes.png") center / cover no-repeat;
+    }
+    .hero::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background: rgba(13, 20, 36, 0.74);
+    }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #f6a493;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; letter-spacing: 0; }
+    h1 {
+      max-width: 860px;
+      margin-bottom: 20px;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1.04;
+    }
+    .hero-copy {
+      max-width: 680px;
+      margin-bottom: 28px;
+      font-size: clamp(18px, 2.1vw, 24px);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .action-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .button.primary { color: var(--white); background: var(--signal); }
+    .button.secondary { border-color: rgba(255,255,255,.68); color: var(--white); background: transparent; }
+    .button:hover { transform: translateY(-1px); }
+    .button:focus-visible, .nav-link:focus-visible, .brand:focus-visible {
+      outline: 3px solid var(--cobalt);
+      outline-offset: 4px;
+    }
+    section { padding: 80px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 34px; }
+    .section-heading h2 { margin-bottom: 12px; font-size: clamp(28px, 3.5vw, 46px); line-height: 1.18; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 17px; }
+    .value-grid, .content-grid, .scene-grid { display: grid; gap: 20px; }
+    .value-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .content-grid { grid-template-columns: 1.15fr .85fr; align-items: start; }
+    .scene-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .value, .scene {
+      padding: 20px 0;
+      border-top: 3px solid var(--cobalt);
+    }
+    .value:nth-child(2) { border-color: var(--signal); }
+    .value:nth-child(3) { border-color: #2b9b88; }
+    .value h3, .scene h3 { margin-bottom: 8px; font-size: 20px; }
+    .value p, .scene p { margin: 0; color: var(--muted); }
+    .content-band { background: var(--white); }
+    .content-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .content-item { display: grid; grid-template-columns: 92px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .content-item strong { color: var(--signal); font-size: 14px; }
+    .content-item span { font-size: 17px; font-weight: 700; }
+    .scene-section { background: #edf2f7; }
+    .cta { color: var(--white); background: var(--deep); }
+    .cta .shell { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: end; }
+    .cta h2 { margin-bottom: 8px; font-size: clamp(30px, 4vw, 52px); line-height: 1.12; }
+    .cta p { max-width: 650px; margin: 0; color: #cbd3e1; }
+    .contact { padding: 26px 0; background: #101827; color: #d2d8e2; font-size: 14px; }
+    .contact .shell { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+    .contact a { color: var(--white); text-underline-offset: 3px; }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 32px, 680px); }
+      .site-nav .shell { min-height: 64px; }
+      .hero { min-height: min(620px, calc(100svh - 76px)); padding: 112px 0 48px; }
+      .value-grid, .content-grid, .scene-grid, .cta .shell { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .content-item { grid-template-columns: 1fr; gap: 4px; }
+      .cta { padding: 56px 0; }
+      .cta .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="页面导航">
+    <div class="shell">
+      <a class="brand" href="project-introduction.html">灵感演示工坊</a>
+      <a class="nav-link" href="https://github.com/zjsthmjialin/inspiration-deck-workshop" target="_blank" rel="noreferrer">GitHub 源码</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="shell">
+        <p class="eyebrow">HTML presentation toolkit</p>
+        <h1 id="page-title">让演示从内容草稿，变成可直接展示的动态页面</h1>
+        <p class="hero-copy">灵感演示工坊面向产品发布、商业汇报、客户提案、课程内容与知识表达，将页面结构、视觉主题、动画效果和本地校验整合进同一套工作流。</p>
+        <div class="action-row">
+          <a class="button primary" href="index.html">查看主题动效展示厅</a>
+          <a class="button secondary" href="https://github.com/zjsthmjialin/inspiration-deck-workshop" target="_blank" rel="noreferrer">访问 GitHub 源码</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Core value</p>
+          <h2>把创作效率、视觉选择与交付质量放在同一条路径上</h2>
+          <p>从现成模板出发，让内容、主题和动效在真实浏览器页面中一起成型。</p>
+        </div>
+        <div class="value-grid">
+          <article class="value"><h3>更快成型</h3><p>从完整 deck 模板开始，快速生成可继续修改的 HTML 演示页面。</p></article>
+          <article class="value"><h3>更容易选定视觉</h3><p>23 套主题覆盖商务、科技、杂志内容、创意表达和高端发布等方向。</p></article>
+          <article class="value"><h3>更可控地交付</h3><p>通过本地校验确认页数、主题、运行时资源和演讲备注等基础结构。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-band">
+      <div class="shell content-grid">
+        <div class="section-heading">
+          <p class="eyebrow">What is inside</p>
+          <h2>一套可复用的演示资产库</h2>
+          <p>根据业务文案、品牌色和叙事结构继续定制，而不必从空白页面开始。</p>
+        </div>
+        <div class="content-list" aria-label="项目内容">
+          <div class="content-item"><strong>23 套</strong><span>可切换视觉主题</span></div>
+          <div class="content-item"><strong>25 个</strong><span>常用演示页面布局</span></div>
+          <div class="content-item"><strong>21 套</strong><span>CSS 动画预设</span></div>
+          <div class="content-item"><strong>多种</strong><span>产品发布、报告、提案、课程与研究简报模板</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene-section">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Use cases</p>
+          <h2>适合需要“看起来像最终成品”的表达场景</h2>
+        </div>
+        <div class="scene-grid">
+          <article class="scene"><h3>客户提案与方案路演</h3><p>用结构化页面和主题风格让方案更易理解、更便于讨论。</p></article>
+          <article class="scene"><h3>产品发布与品牌叙事</h3><p>让核心信息、数据指标和视觉节奏共同服务于发布现场。</p></article>
+          <article class="scene"><h3>战略汇报与研究简报</h3><p>把复杂内容组织成清晰、稳定、可复用的浏览器演示。</p></article>
+          <article class="scene"><h3>课程与知识产品</h3><p>将章节、示例和练习提示整理为连贯的内容体验。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="shell">
+        <div>
+          <h2>先看真实主题与动效，再决定下一份演示的方向。</h2>
+          <p>在线展示厅支持直接切换主题和动画组合，手机端也可查看。</p>
+        </div>
+        <a class="button primary" href="index.html">打开在线展示厅</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contact">
+    <div class="shell">
+      <span>联系作者：<a href="mailto:zjsthm@gmail.com">zjsthm@gmail.com</a></span>
+      <span>微信：63656299</span>
+    </div>
+  </footer>
+</body>
+</html>
