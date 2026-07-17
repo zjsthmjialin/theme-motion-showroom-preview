@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN" data-deck-id="memweaver-intro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="MemWeaver：Obsidian x Codex 长期记忆系统项目介绍">
+  <title>MemWeaver 项目介绍</title>
+  <style>
+  :root {
+    --font-sans: "Inter", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    --bg: #090806;
+    --surface: #15110b;
+    --surface-soft: #211a10;
+    --border: rgba(214, 178, 94, 0.28);
+    --text-1: #fff7e8;
+    --text-2: rgba(244, 222, 181, 0.78);
+    --text-3: rgba(183, 158, 113, 0.72);
+    --accent: #d6b25e;
+    --accent-2: #ef4444;
+    --radius: 8px;
+    --shadow: 0 28px 76px rgba(0, 0, 0, 0.52);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text-1); font-family: var(--font-sans); }
+  .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 72px 96px; opacity: 0; pointer-events: none; transform: translateX(24px); transition: opacity .28s ease, transform .28s ease; }
+  .slide.is-active { opacity: 1; pointer-events: auto; transform: translateX(0); z-index: 2; }
+  .slide.is-prev { transform: translateX(-24px); }
+  .theme-stage, .premium-stage { overflow: hidden; background: linear-gradient(128deg, rgba(214,178,94,.16), transparent 34%), linear-gradient(145deg, #090806 0%, #17110a 58%, #250b0b 100%); }
+  .theme-stage::before, .premium-stage::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 20%, rgba(214,178,94,.20), transparent 34%), radial-gradient(circle at 84% 16%, rgba(239,68,68,.18), transparent 30%); opacity: .85; }
+  .slide > * { position: relative; z-index: 1; }
+  .layout-frame { width: min(1120px, 100%); margin: 0 auto; color: var(--text-1); }
+  .layout-topline { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; color: var(--text-3); font-size: 14px; }
+  .premium-kicker { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .premium-title-xl { max-width: 980px; margin: 0; font-size: clamp(56px, 7vw, 84px); line-height: .96; font-weight: 850; letter-spacing: 0; }
+  .h2 { margin: 0; font-size: 52px; line-height: 1.12; letter-spacing: 0; }
+  .lede { max-width: 900px; color: var(--text-2); font-size: 24px; line-height: 1.55; }
+  .signal-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 34px; }
+  .signal-strip span, .premium-panel, .device-card, .sync-core, .start-steps div, .memory-node { border: 1px solid var(--border); background: rgba(21,17,11,.72); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
+  .signal-strip span { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 999px; color: var(--text-1); font-weight: 850; font-size: 15px; }
+  .pain-grid, .flow-line, .start-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+  .premium-panel { border-radius: 24px; padding: 24px; }
+  .pain-grid strong { display: block; margin-bottom: 14px; color: var(--text-1); font-size: 26px; letter-spacing: 0; }
+  .pain-grid p, .flow-line p, .device-card p, .sync-core p, .start-steps p { color: var(--text-2); }
+  .architecture { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 18px; margin-top: 34px; }
+  .memory-node { min-height: 220px; border-radius: 28px; padding: 30px; }
+  .memory-node.primary { background: linear-gradient(135deg, rgba(214,178,94,.22), rgba(21,17,11,.88)); }
+  .memory-node span, .flow-line span, .sync-core span { display: block; color: var(--accent); font-size: 15px; font-weight: 900; letter-spacing: 0; margin-bottom: 14px; }
+  .memory-node p { color: var(--text-1); font-size: 28px; line-height: 1.18; font-weight: 820; }
+  .flow-line h3 { font-size: 28px; margin: 0 0 12px; }
+  .premium-caption { max-width: 980px; margin-top: 24px; color: var(--text-2); font-size: 26px; line-height: 1.36; font-weight: 780; }
+  .device-stage { display: grid; grid-template-columns: 1fr 1.12fr 1fr; gap: 18px; align-items: stretch; margin-top: 32px; }
+  .device-card, .sync-core { min-height: 210px; border-radius: 28px; padding: 28px; }
+  .device-card em { display: block; margin-bottom: 18px; color: var(--text-1); font-style: normal; font-size: 34px; font-weight: 900; }
+  .sync-core { background: linear-gradient(135deg, rgba(214,178,94,.22), rgba(21,17,11,.9)); }
+  .sync-core p, .device-card p, .start-steps p { font-size: 21px; line-height: 1.42; }
+  .start-steps div { min-height: 178px; border-radius: 26px; padding: 26px; }
+  .start-steps b { display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent); color: #090806; font-size: 22px; margin-bottom: 18px; }
+  .final-line { max-width: 980px; margin-top: 34px; }
+  .contact-line { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; color: var(--text-2); font-size: 17px; font-weight: 760; }
+  .contact-line span { min-width: 0; border: 1px solid var(--border); border-radius: 999px; padding: 9px 14px; background: rgba(9,8,6,.48); overflow-wrap: anywhere; }
+  .progress-bar { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; z-index: 20; background: transparent; }
+  .progress-bar span { display: block; width: 0; height: 100%; background: var(--accent); transition: width .2s ease; }
+  .notes, .notes-overlay, .overview { display: none !important; }
+  @media (max-width: 900px) {
+    .slide { padding: 24px 20px 32px; }
+    .layout-frame { padding: 22px 20px; }
+    .premium-title-xl { font-size: clamp(36px, 10.8vw, 56px); line-height: 1.04; }
+    .h2 { font-size: clamp(34px, 9vw, 52px); line-height: 1.08; }
+    .lede { font-size: 18px; line-height: 1.38; }
+    .premium-caption { margin-top: 18px; font-size: 18px; line-height: 1.35; }
+    .signal-strip, .pain-grid, .architecture, .flow-line, .device-stage, .start-steps { grid-template-columns: 1fr; }
+    .signal-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 20px; gap: 10px; }
+    .signal-strip span { min-height: 46px; font-size: 14px; }
+    .memory-node, .device-card, .sync-core, .start-steps div { min-height: auto; border-radius: 20px; padding: 20px; }
+    .memory-node p, .flow-line h3 { font-size: 24px; }
+    .device-card em { font-size: 28px; }
+    .sync-core p, .device-card p, .start-steps p { font-size: 18px; }
+    .mem-closing .layout-frame { padding-top: 18px; padding-bottom: 18px; }
+    .mem-closing .premium-kicker { margin-bottom: 8px; }
+    .mem-closing .premium-title-xl { width: 100%; max-width: 100%; font-size: clamp(30px, 8vw, 36px); line-height: 1.08; overflow-wrap: anywhere; word-break: break-word; }
+    .mem-closing .start-steps { width: 100%; max-width: 100%; gap: 10px; margin-top: 16px; }
+    .mem-closing .start-steps div { display: grid; width: 100%; max-width: 100%; min-width: 0; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; }
+    .mem-closing .start-steps b { width: 34px; height: 34px; margin-bottom: 0; font-size: 18px; }
+    .mem-closing .start-steps p { min-width: 0; font-size: 15px; line-height: 1.28; overflow-wrap: anywhere; word-break: break-word; }
+    .mem-closing .final-line { margin-top: 16px; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; word-break: break-word; }
+    .mem-closing .contact-line { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; font-size: 13px; }
+    .mem-closing .contact-line span { border-radius: 14px; padding: 8px 10px; }
+  }
+  </style>
+</head>
+<body>
+<div class="deck memweaver-deck">
+  <section class="slide is-active premium-stage mem-hero" data-title="封面">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>MemWeaver</span><span>Obsidian x Codex</span></div>
+      <p class="premium-kicker">Long-term memory for AI work</p>
+      <h1 class="premium-title-xl">给 Codex 一块可同步的长期记忆硬盘</h1>
+      <p class="lede">用 Obsidian 知识库管理 CodeX 记忆，用全局 AGENTS.md 让 Codex 每次任务自动读取、任务结束自动写回，维持长期记忆。</p>
+      <div class="signal-strip" aria-label="项目特征"><span>纯 Markdown</span><span>零部署</span><span>Mac / Windows</span><span>可分发</span></div>
+    </div>
+  </section>
+  <section class="slide theme-stage" data-title="为什么需要">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>01</span><span>Problem</span></div>
+      <p class="premium-kicker">AI forgets between tasks</p>
+      <h2 class="h2">每个新任务都像重新认识你</h2>
+      <div class="pain-grid"><div class="premium-panel"><strong>重复交代</strong><p>偏好、项目状态、边界条件反复说明，时间被消耗在“重新同步背景”。</p></div><div class="premium-panel"><strong>经验流失</strong><p>一次任务里的判断和踩坑，如果不沉淀，下次仍然可能重新犯。</p></div><div class="premium-panel"><strong>上下文过载</strong><p>把所有材料塞进提示词会变慢、变乱，也更容易污染当前任务。</p></div></div>
+    </div>
+  </section>
+  <section class="slide theme-stage" data-title="核心方案">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>02</span><span>Solution</span></div>
+      <p class="premium-kicker">One vault, three memory zones</p>
+      <h2 class="h2">一份 Obsidian 库，三层记忆入口</h2>
+      <div class="architecture"><div class="memory-node primary"><span>AI-Memory</span><p>偏好、项目索引、总索引</p></div><div class="memory-node"><span>10-Cards</span><p>可复用结论卡</p></div><div class="memory-node"><span>20-Projects</span><p>项目状态与决策</p></div></div>
+      <p class="premium-caption">Codex 先读入口，再按任务相关性读取少量文件；默认不通读全库。</p>
+    </div>
+  </section>
+  <section class="slide theme-stage" data-title="运行闭环">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>03</span><span>Workflow</span></div>
+      <p class="premium-kicker">Read, work, write back</p>
+      <h2 class="h2">任务开始自动读取，任务结束自动沉淀</h2>
+      <div class="flow-line"><div class="premium-panel"><span>Start</span><h3>扫描入口</h3><p>列出 AI-Memory/，读取相关偏好与项目状态。</p></div><div class="premium-panel"><span>Work</span><h3>按需检索</h3><p>需要历史经验时检索 10-Cards/，最多沿双链延伸一层。</p></div><div class="premium-panel"><span>End</span><h3>只追加写回</h3><p>只记录未来可复用的结论，并重建 INDEX.md。</p></div></div>
+    </div>
+  </section>
+  <section class="slide theme-stage" data-title="跨端分发">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>04</span><span>Distribution</span></div>
+      <p class="premium-kicker">One package, local paths</p>
+      <h2 class="h2">一份知识库包，同时支持 Mac 和 Windows</h2>
+      <div class="device-stage"><div class="device-card"><em>Mac</em><p>~/.codex/AGENTS.md 指向本机 Vault 路径。</p></div><div class="sync-core"><span>JS-MemWeaver-Vault</span><p>同步盘中只保留一份内容库</p></div><div class="device-card"><em>Windows</em><p>C:\Users\...\.codex\AGENTS.md 指向本机 Vault 路径。</p></div></div>
+      <p class="premium-caption">内容库不分叉；每台电脑只配置自己的全局 AGENTS.md。</p>
+    </div>
+  </section>
+  <section class="slide premium-stage mem-closing" data-title="行动">
+    <div class="layout-frame">
+      <div class="layout-topline"><span>05</span><span>Start</span></div>
+      <p class="premium-kicker">From blank memory to working memory</p>
+      <h2 class="premium-title-xl">拿到压缩包，三步开始使用</h2>
+      <div class="start-steps"><div><b>1</b><p>用 Obsidian 打开 JS-MemWeaver-Vault。</p></div><div><b>2</b><p>把 Mac 或 Windows 提示词发给本机 Codex。</p></div><div><b>3</b><p>新开任务测试自动读取，并开始沉淀自己的偏好和经验。</p></div></div>
+      <p class="lede final-line">MemWeaver 的目标不是替你记住一切，而是让真正会复用的经验，有地方留下来。</p>
+      <div class="contact-line" aria-label="联系作者"><span>联系作者：zjsthm@gmail.com</span><span>微信：63656299</span></div>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  "use strict";
+  function ready(fn) { if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn); else fn(); }
+  ready(function () {
+    const deck = document.querySelector(".deck");
+    const slides = Array.from(deck.querySelectorAll(".slide"));
+    let index = 0;
+    const bar = document.createElement("div");
+    bar.className = "progress-bar";
+    bar.innerHTML = "<span></span>";
+    document.body.appendChild(bar);
+    const fill = bar.querySelector("span");
+    function go(next) {
+      index = Math.max(0, Math.min(slides.length - 1, next));
+      slides.forEach((slide, i) => { slide.classList.toggle("is-active", i === index); slide.classList.toggle("is-prev", i < index); });
+      fill.style.width = `${((index + 1) / slides.length) * 100}%`;
+      history.replaceState(null, "", `#/${index + 1}`);
+    }
+    function fromHash() { const match = /^#\/(\d+)/.exec(location.hash || ""); if (match) go(Number(match[1]) - 1); }
+    document.addEventListener("keydown", function (event) {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (["ArrowRight", " ", "PageDown", "Enter"].includes(event.key)) { go(index + 1); event.preventDefault(); }
+      else if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) { go(index - 1); event.preventDefault(); }
+      else if (event.key === "Home") go(0);
+      else if (event.key === "End") go(slides.length - 1);
+    });
+    window.addEventListener("hashchange", fromHash);
+    fromHash();
+    go(index);
+  });
+})();
+</script>
+</body>
+</html>
