@@ -92,6 +92,12 @@
     .page-arrow { width: 44px; height: 44px; bottom: max(12px, env(safe-area-inset-bottom)); font-size: 29px; }
     .page-arrow.prev { left: max(8px, env(safe-area-inset-left)); }
     .page-arrow.next { right: max(8px, env(safe-area-inset-right)); }
+    .slide .layout-frame {
+      --fit-scale: 1;
+      --fit-shift-y: 0px;
+      transform: translateY(var(--fit-shift-y)) scale(var(--fit-scale));
+      transform-origin: center center;
+    }
     .slide { padding: 24px 20px 32px; }
     .layout-frame { padding: 22px 20px; }
     .premium-title-xl { font-size: clamp(36px, 10.8vw, 56px); line-height: 1.04; }
@@ -224,12 +230,37 @@
     nextButton.textContent = "›";
     nextButton.addEventListener("click", () => go(index + 1));
     document.body.appendChild(nextButton);
+    let fitRequest = 0;
+    function fitActiveSlide() {
+      const frame = slides[index]?.querySelector(".layout-frame");
+      if (!frame) return;
+      frame.style.setProperty("--fit-scale", "1");
+      frame.style.setProperty("--fit-shift-y", "0px");
+      if (!window.matchMedia("(max-width: 900px)").matches) return;
+      const rect = frame.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = Math.min(window.innerHeight, window.visualViewport?.height || window.innerHeight);
+      const sideSpace = 12;
+      const topSpace = 8;
+      const arrowSpace = 76;
+      const widthScale = (viewportWidth - sideSpace * 2) / Math.max(1, rect.width);
+      const heightScale = (viewportHeight - topSpace - arrowSpace) / Math.max(1, rect.height);
+      const scale = Math.max(0.42, Math.min(1, widthScale, heightScale));
+      frame.style.setProperty("--fit-scale", scale.toFixed(4));
+      frame.style.setProperty("--fit-shift-y", `${(topSpace - arrowSpace) / 2}px`);
+    }
+    function scheduleFit() {
+      cancelAnimationFrame(fitRequest);
+      fitRequest = requestAnimationFrame(() => requestAnimationFrame(fitActiveSlide));
+    }
+
     function go(next) {
       index = Math.max(0, Math.min(slides.length - 1, next));
       slides.forEach((slide, i) => { slide.classList.toggle("is-active", i === index); slide.classList.toggle("is-prev", i < index); });
       fill.style.width = `${((index + 1) / slides.length) * 100}%`;
       prevButton.disabled = index === 0;
       nextButton.disabled = index === slides.length - 1;
+      scheduleFit();
       history.replaceState(null, "", `#/${index + 1}`);
     }
     function fromHash() { const match = /^#\/(\d+)/.exec(location.hash || ""); if (match) go(Number(match[1]) - 1); }
@@ -240,6 +271,9 @@
       else if (event.key === "Home") go(0);
       else if (event.key === "End") go(slides.length - 1);
     });
+    window.addEventListener("resize", scheduleFit, { passive: true });
+    window.addEventListener("orientationchange", scheduleFit, { passive: true });
+    window.visualViewport?.addEventListener("resize", scheduleFit, { passive: true });
     window.addEventListener("hashchange", fromHash);
     fromHash();
     go(index);
