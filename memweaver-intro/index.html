@@ -62,7 +62,36 @@
   .progress-bar { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; z-index: 20; background: transparent; }
   .progress-bar span { display: block; width: 0; height: 100%; background: var(--accent); transition: width .2s ease; }
   .notes, .notes-overlay, .overview { display: none !important; }
+  .page-arrow {
+    position: fixed;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(214, 178, 94, .55);
+    border-radius: 50%;
+    color: #fff7e8;
+    background: rgba(9, 8, 6, .78);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .38);
+    font: 300 34px/1 var(--font-sans);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    backdrop-filter: blur(8px);
+  }
+  .page-arrow.prev { left: max(14px, env(safe-area-inset-left)); }
+  .page-arrow.next { right: max(14px, env(safe-area-inset-right)); }
+  .page-arrow:active { background: rgba(214, 178, 94, .32); transform: scale(.94); }
+  .page-arrow:focus-visible { outline: 3px solid rgba(248, 229, 160, .72); outline-offset: 3px; }
+  .page-arrow:disabled { opacity: .22; cursor: default; box-shadow: none; }
   @media (max-width: 900px) {
+    .page-arrow { width: 44px; height: 44px; bottom: max(12px, env(safe-area-inset-bottom)); font-size: 29px; }
+    .page-arrow.prev { left: max(8px, env(safe-area-inset-left)); }
+    .page-arrow.next { right: max(8px, env(safe-area-inset-right)); }
     .slide { padding: 24px 20px 32px; }
     .layout-frame { padding: 22px 20px; }
     .premium-title-xl { font-size: clamp(36px, 10.8vw, 56px); line-height: 1.04; }
@@ -158,10 +187,28 @@
     bar.innerHTML = "<span></span>";
     document.body.appendChild(bar);
     const fill = bar.querySelector("span");
+    const prevButton = document.createElement("button");
+    prevButton.className = "page-arrow prev";
+    prevButton.type = "button";
+    prevButton.setAttribute("aria-label", "上一页");
+    prevButton.title = "上一页";
+    prevButton.textContent = "‹";
+    prevButton.addEventListener("click", () => go(index - 1));
+    document.body.appendChild(prevButton);
+    const nextButton = document.createElement("button");
+    nextButton.className = "page-arrow next";
+    nextButton.type = "button";
+    nextButton.setAttribute("aria-label", "下一页");
+    nextButton.title = "下一页";
+    nextButton.textContent = "›";
+    nextButton.addEventListener("click", () => go(index + 1));
+    document.body.appendChild(nextButton);
     function go(next) {
       index = Math.max(0, Math.min(slides.length - 1, next));
       slides.forEach((slide, i) => { slide.classList.toggle("is-active", i === index); slide.classList.toggle("is-prev", i < index); });
       fill.style.width = `${((index + 1) / slides.length) * 100}%`;
+      prevButton.disabled = index === 0;
+      nextButton.disabled = index === slides.length - 1;
       history.replaceState(null, "", `#/${index + 1}`);
     }
     function fromHash() { const match = /^#\/(\d+)/.exec(location.hash || ""); if (match) go(Number(match[1]) - 1); }
